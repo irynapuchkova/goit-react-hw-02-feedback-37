@@ -1,4 +1,10 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import {
+  FeedbackPointsSet,
+  TotalPoints,
+  FeedbackPoints,
+  PositivePotion,
+} from './Statistics.styled';
 
 export default function Statistics({
   good,
@@ -8,23 +14,31 @@ export default function Statistics({
   positivePercentage,
 }) {
   return (
-    <div>
-      <p>
+    <FeedbackPointsSet>
+      <FeedbackPoints>
         Good : <span>{good}</span>
-      </p>
-      <p>
+      </FeedbackPoints>
+      <FeedbackPoints>
         Neutral : <span>{neutral}</span>
-      </p>
-      <p>
+      </FeedbackPoints>
+      <FeedbackPoints>
         Bad : <span>{bad}</span>
-      </p>
-      <p>
+      </FeedbackPoints>
+      <TotalPoints>
         Total : <span>{total}</span>
-      </p>
-      <p>
+      </TotalPoints>
+      <PositivePotion>
         Positive Feedback :
-        <span>{positivePercentage && positivePercentage}%</span>
-      </p>
-    </div>
+        <span>{positivePercentage && positivePercentage} %</span>
+      </PositivePotion>
+    </FeedbackPointsSet>
   );
 }
+
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
+};

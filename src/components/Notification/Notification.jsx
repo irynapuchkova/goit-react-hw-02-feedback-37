@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
-import styled from './Section.styled';
+import { NotificationText } from './Notification.styled';
 
 export default function Notification({ message }) {
-  console.log(message);
-  return <p>{message}</p>;
+  return <NotificationText type="text">{message}</NotificationText>;
 }
+
+Notification.propTypes = {
+  message: PropTypes.string,
+};

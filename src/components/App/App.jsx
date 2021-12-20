@@ -6,8 +6,6 @@ import Statistics from 'components/Statistics';
 import FeedbackOptions from 'components/FeedbackOptions';
 import Notification from 'components/Notification';
 
-console.log(Notification);
-console.log(FeedbackOptions);
 export default class App extends Component {
   state = {
     good: 0,
@@ -42,15 +40,16 @@ export default class App extends Component {
 
     return (
       <>
-        <Section title="Please)) Leave feedback">
+        <Section title="Please )) Leave feedback">
           <FeedbackOptions
             options={options}
             onLeaveFeedback={this.onButtonClick}
           />
         </Section>
-        {/* {!total && <Notification message="There is no feedback" />} */}
-        {total > 0 && (
-          <Section title="Statistics">
+
+        <Section title="Statistics">
+          {total === 0 && <Notification message="There is no feedback ((" />}
+          {total > 0 && (
             <Statistics
               good={good}
               neutral={neutral}
@@ -58,8 +57,8 @@ export default class App extends Component {
               total={total}
               positivePercentage={positivePercentage}
             />
-          </Section>
-        )}
+          )}
+        </Section>
       </>
     );
   }

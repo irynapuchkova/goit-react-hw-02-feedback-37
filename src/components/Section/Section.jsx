@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { SectionSet } from './Section.styled';
+import { SectionSet, Head } from './Section.styled';
 
 export default function Section({ title, children }) {
   return (
     <SectionSet>
-      {title}
+      {title && <Head>{title}</Head>}
       {children}
     </SectionSet>
   );
