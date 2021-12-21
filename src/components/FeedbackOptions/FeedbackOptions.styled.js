@@ -25,6 +25,8 @@ export const Button = styled.button`
   border-top-style: none;
   border-right-style: none;
   border-left-style: none;
+  cursor: pointer;
+  
   &:hover {
     background: #2ebc99;
 `;

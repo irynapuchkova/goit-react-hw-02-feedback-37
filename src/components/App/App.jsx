@@ -16,25 +16,28 @@ export default class App extends Component {
   onButtonClick = e => {
     let reaction = e.currentTarget.innerText.toLowerCase();
     const keys = Object.keys(this.state);
+    const isReaction = keys.filter(key => key === reaction);
 
-    if (keys.filter(key => key === reaction)) {
+    if (isReaction) {
       this.setState(prevState => ({ [reaction]: prevState[reaction] + 1 }));
     }
   };
 
   countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-    return good + neutral + bad;
+    return Object.values(this.state).reduce((acc, value) => acc + value, 0);
   };
 
-  countPositiveFeedbackPercentage = total => {
+  countPositiveFeedbackPercentage = () => {
     const { good } = this.state;
-    return Number.parseInt((good * 100) / total);
+    const positivePercentage = Number.parseInt(
+      (good * 100) / this.countTotalFeedback(),
+    );
+    return positivePercentage;
   };
 
   render() {
-    const { good, neutral, bad } = this.state;
-    const options = ['Good', 'Neutral', 'Bad'];
+    const statistics = Object.entries(this.state);
+    const options = Object.keys(this.state);
     const total = this.countTotalFeedback();
     const positivePercentage = this.countPositiveFeedbackPercentage(total);
 
@@ -51,9 +54,7 @@ export default class App extends Component {
           {total === 0 && <Notification message="There is no feedback ((" />}
           {total > 0 && (
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
+              feedbackStatistics={statistics}
               total={total}
               positivePercentage={positivePercentage}
             />

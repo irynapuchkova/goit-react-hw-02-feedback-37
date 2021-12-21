@@ -1,34 +1,32 @@
 import PropTypes from 'prop-types';
+import { arrayOf } from 'prop-types';
 import {
   FeedbackPointsSet,
   TotalPoints,
+  FeedbackPointsUnit,
   FeedbackPoints,
+  FeedbackPointsValue,
   PositivePotion,
 } from './Statistics.styled';
 
 export default function Statistics({
-  good,
-  neutral,
-  bad,
+  feedbackStatistics,
   total,
   positivePercentage,
 }) {
   return (
     <FeedbackPointsSet>
-      <FeedbackPoints>
-        Good : <span>{good}</span>
-      </FeedbackPoints>
-      <FeedbackPoints>
-        Neutral : <span>{neutral}</span>
-      </FeedbackPoints>
-      <FeedbackPoints>
-        Bad : <span>{bad}</span>
-      </FeedbackPoints>
+      {feedbackStatistics.map(([key, value]) => (
+        <FeedbackPointsUnit key={key}>
+          <FeedbackPoints>{key}:</FeedbackPoints>
+          <FeedbackPointsValue>{value}</FeedbackPointsValue>
+        </FeedbackPointsUnit>
+      ))}
       <TotalPoints>
-        Total : <span>{total}</span>
+        total: <span>{total}</span>
       </TotalPoints>
       <PositivePotion>
-        Positive Feedback :
+        positive feedback :
         <span>{positivePercentage && positivePercentage} %</span>
       </PositivePotion>
     </FeedbackPointsSet>
@@ -36,9 +34,12 @@ export default function Statistics({
 }
 
 Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
+  statistics: PropTypes.arrayOf(
+    arrayOf({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ),
   total: PropTypes.number.isRequired,
   positivePercentage: PropTypes.number.isRequired,
 };
