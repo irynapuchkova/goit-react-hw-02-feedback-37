@@ -16,7 +16,7 @@ export default class App extends Component {
   onButtonClick = e => {
     let reaction = e.currentTarget.innerText.toLowerCase();
     const keys = Object.keys(this.state);
-    const isReaction = keys.filter(key => key === reaction);
+    const isReaction = keys.find(key => key === reaction);
 
     if (isReaction) {
       this.setState(prevState => ({ [reaction]: prevState[reaction] + 1 }));
